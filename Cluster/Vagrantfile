@@ -1,0 +1,47 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  # Set default Provider to be VirtualBox
+  ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
+
+  # Use Ubuntu 14.04 VirtualBox
+  config.vm.box = "ubuntu/trusty64"
+
+  # Manage /etc/hosts on host and VMs
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
+  config.hostmanager.include_offline = false
+  config.hostmanager.ignore_private_ip = false
+
+  # Configure all Nodes
+  nodes = 4
+  r = nodes..1
+  (r.first).downto(r.last).each do |i|
+    name = "node#{i}"
+    config.vm.define name do |node|
+      node.vm.provider "virtualbox" do |v|
+        v.name = name
+        v.customize ["modifyvm", :id, "--memory", "2048"]
+      end
+      node.vm.network :private_network, ip: "192.168.56.10#{i}"
+      node.vm.hostname = name
+      # Hack: Do not let vagrant-hostmanager override 127.0.0.1 hostname alias
+      # https://github.com/devopsgroup-io/vagrant-hostmanager/issues/203
+      node.vm.provision :shell, inline: "sed -i'' '/^127.0.0.1\\t#{name}\\t#{name}$/d' /etc/hosts"
+      # Run setup
+      node.vm.provision :shell, path: "./bootstrap.sh", privileged: false
+
+      if i > 1 # Slave node (Data-Nodes)
+        # Add slave to slaves file
+        node.vm.provision :shell, inline: "hostname >> /vagrant/configurations/slaves"
+      else  # Master node (Name-Node)
+        # Add to masters file
+        node.vm.provision :shell, inline: "hostname >> /vagrant/configurations/masters"
+        # Master Setup
+        node.vm.provision :shell, path: "./bootstrap-master.sh", privileged: false
+      end
+    end
+  end
+end

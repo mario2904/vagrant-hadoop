@@ -1,0 +1,15 @@
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# Vagrant related files #
+#########################
+.vagrant
+
+# Dynamically created files #
+masters
+slaves
