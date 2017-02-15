@@ -19,6 +19,8 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 50070, host: 50070
   # Web interface for the ResourceManager
   config.vm.network "forwarded_port", guest: 8088, host: 8088
+  # Web interface for MapReduce JobHistory Server
+  config.vm.network "forwarded_port", guest: 19888, host: 19888
 
   # Installations and Configurations
   config.vm.provision :shell, path: "./bootstrap.sh", privileged: false
