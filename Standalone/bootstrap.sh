@@ -3,6 +3,9 @@
 HADOOP_VERSION=2.7.3
 HADOOP_HOME=/usr/local/hadoop
 
+# Install Git
+sudo apt-get install -y git
+
 # Install Java
 # http://askubuntu.com/questions/190582/installing-java-automatically-with-silent-option
 sudo add-apt-repository -y ppa:webupd8team/java

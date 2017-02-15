@@ -7,6 +7,9 @@ HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop
 cp /vagrant/configurations/masters "$HADOOP_CONF_DIR/masters"
 cp /vagrant/configurations/slaves "$HADOOP_CONF_DIR/slaves"
 
+# Install Git
+sudo apt-get install -y git
+
 # Install Maven
 sudo apt-get install -y maven
 
