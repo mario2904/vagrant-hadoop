@@ -11,10 +11,14 @@ sudo apt-get update
 echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo debconf-set-selections
 sudo apt-get install -y oracle-java8-installer
 
+# Install Maven
+sudo apt-get install -y maven
+
 # Install Hadoop
 wget --quiet "http://www-us.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz"
 tar xfz "hadoop-$HADOOP_VERSION.tar.gz"
 sudo mv "hadoop-$HADOOP_VERSION" "$HADOOP_HOME"
+rm "hadoop-$HADOOP_VERSION.tar.gz"
 sed -i "s/\${JAVA_HOME}/\/usr\/lib\/jvm\/java-8-oracle/" "$HADOOP_HOME/etc/hadoop/hadoop-env.sh"
 # Pseudo-Distributed Configuration
 cp /vagrant/configurations/core-site.xml "$HADOOP_CONF_DIR/core-site.xml"
@@ -57,3 +61,5 @@ bin/hdfs namenode -format
 sbin/start-dfs.sh
 # Start ResourceManager daemon and NodeManager daemon
 sbin/start-yarn.sh
+# Start the MapReduce JobHistory Server
+sbin/mr-jobhistory-daemon.sh --config /usr/local/hadoop/etc/hadoop start historyserver

@@ -15,6 +15,7 @@ sudo apt-get install -y oracle-java8-installer
 wget --quiet "http://www-us.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz"
 tar xfz "hadoop-$HADOOP_VERSION.tar.gz"
 sudo mv "hadoop-$HADOOP_VERSION" "$HADOOP_HOME"
+rm "hadoop-$HADOOP_VERSION.tar.gz"
 sed -i "s/\${JAVA_HOME}/\/usr\/lib\/jvm\/java-8-oracle/" "$HADOOP_HOME/etc/hadoop/hadoop-env.sh"
 # Common configurations
 cp /vagrant/configurations/core-site.xml "$HADOOP_CONF_DIR/core-site.xml"

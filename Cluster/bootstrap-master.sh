@@ -7,6 +7,9 @@ HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop
 cp /vagrant/configurations/masters "$HADOOP_CONF_DIR/masters"
 cp /vagrant/configurations/slaves "$HADOOP_CONF_DIR/slaves"
 
+# Install Maven
+sudo apt-get install -y maven
+
 # Install sshpass
 sudo apt-get install -y sshpass
 
@@ -24,3 +27,5 @@ bin/hdfs namenode -format
 sbin/start-dfs.sh
 # Start ResourceManager daemon and NodeManager daemon
 sbin/start-yarn.sh
+# Start the MapReduce JobHistory Server
+sbin/mr-jobhistory-daemon.sh --config /usr/local/hadoop/etc/hadoop start historyserver
