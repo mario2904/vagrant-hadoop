@@ -4,9 +4,22 @@ This project is geared towards people starting to learn about [Hadoop](http://ha
 
 ## Requirements
 
+#### Installation
+
 * [VirtualBox](https://www.virtualbox.org/)
 * [Vagrant](https://www.vagrantup.com/)
   * Plugin - [vagrant-hostmanager](https://github.com/devopsgroup-io/vagrant-hostmanager)
+
+#### Hardware
+
+Using the default configurations it will require the following from the host machine:
+
+* Standalone
+  * 4GB of memory
+* Pseudo-Distributed
+  * 4GB of memory
+* Cluster
+  * 2GB of memory for Each VM. A total of 8GB.
 
 ## Setup
 
@@ -24,11 +37,13 @@ Change to the directory of the Hadoop Installation you want.
 cd <hadoop-installation>
 ```
 
-Then just run the following command and vagrant will spin up 1 or more VM's and take care of all the Hadoop setup installation.
+Then just run the following command and vagrant will spin up 1 or more VM's and take care of all the Hadoop setup installation. **(You can ignore all the output messages in different colors)**
 
 ```bash
 vagrant up
 ```
+
+\*** If this is the first time running this command, it will take more time to setup since first Vagrant will need to download the specified ubuntu image **ubuntu/trusty64** from it's private repository. The Vagrant box is downloaded to the ~/.vagrant.d/boxes directory. On Windows, this is C:/Users/{your-username}/.vagrant.d/boxes.
 
 ## Usage
 
@@ -75,6 +90,8 @@ Click one of the following to see their respective configurations in more detail
 * [Standalone](https://github.com/mario2904/vagrant-hadoop/tree/master/Standalone)
 * [Pseudo-Distributed](https://github.com/mario2904/vagrant-hadoop/tree/master/Pseudo-Distributed)
 * [Cluster](https://github.com/mario2904/vagrant-hadoop/tree/master/Cluster)
+
+\** The memory requirements for each configuration can be modified by changing the line containing ```v.customize ["modifyvm", :id, "--memory", "4096"]``` of the **Vagrantfile**.
 
 *** For extra configurations you can consult the Vagrant documentation [here](https://www.vagrantup.com/docs/).
 

@@ -15,9 +15,17 @@ The default configuration is to spin up 4 VM's  and setup their appropiate Hadoo
 | node4 | node4    | 192.168.56.104 | DataNode               |
 |       |          |                | NodeManager            |
 
+### Extra customization
+
+You can make the following changes to the default customization. These changes need to be done before initial setup ```vagrant up```.
+
+#### Adding more nodes
+
+If your hardware can support it, you can add more **DataNodes** to the Cluster by editing the line **19**: ```nodes = 4```  of the Vagrantfile. The node **node1** will always be the NameNode.
+
 ### Web Interfaces
 
-The plugin vagrant-hostmanager helps in configuring the private network and also automatically add the hostnames and ip addresses to the host's machine hosts file (/etc/hosts) and manage it smoothly, that way when you destroy the VM's it will also clear out the added entries in your hosts file.
+The plugin vagrant-hostmanager helps in configuring the private network and also automatically add the hostnames and ip addresses to the host's machine hosts file (/etc/hosts) and manage it smoothly. **For this reason you will be prompted for your password during initial setup.**
 
 - NameNode - [http://node1:50070](http://node1:50070)
 - ResourceManager - [http://node1:8088](http://node1:8088)
